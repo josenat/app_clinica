@@ -56,5 +56,8 @@ class Consulta extends Model
         'motivo' => 'required'
     ];
 
-    
+    public function enfermedad()
+    {
+        return $this->belongsTo('App\Models\Enfermedad', 'id_enfermedad', 'id');
+    }       
 }

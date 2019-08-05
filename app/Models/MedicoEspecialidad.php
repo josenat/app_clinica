@@ -49,5 +49,13 @@ class MedicoEspecialidad extends Model
         'id_medico' => 'required'
     ];
 
-    
+    public function medico()
+    {
+        return $this->belongsTo('App\Models\Medico', 'id_medico', 'id');
+    }    
+
+    public function especialidad()
+    {
+        return $this->belongsTo('App\Models\Especialidad', 'id_especialidad', 'id');
+    }            
 }

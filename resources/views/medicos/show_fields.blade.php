@@ -18,7 +18,7 @@
 
 <!-- Direccion Field -->
 <div class="form-group">
-    {!! Form::label('direccion', 'Direccion:') !!}
+    {!! Form::label('direccion', 'Dirección:') !!}
     <p>{!! $medico->direccion !!}</p>
 </div>
 

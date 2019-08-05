@@ -13,12 +13,15 @@ class CreatePacienteMedicosTable extends Migration
      */
     public function up()
     {
-        Schema::create('paciente__medicos', function (Blueprint $table) {
+        Schema::create('paciente_medicos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_paciente');
-            $table->integer('id_medico');
+            $table->integer('id_paciente')->unsigned();;
+            $table->integer('id_medico')->unsigned();;
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('id_paciente')->references('id')->on('pacientes')->onDelete('cascade');
+            $table->foreign('id_medico')->references('id')->on('medicos')->onDelete('cascade');            
         });
     }
 

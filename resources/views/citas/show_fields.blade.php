@@ -18,7 +18,7 @@
 
 <!-- Observacion Field -->
 <div class="form-group">
-    {!! Form::label('observacion', 'Observacion:') !!}
+    {!! Form::label('observacion', 'Observación:') !!}
     <p>{!! $cita->observacion !!}</p>
 </div>
 

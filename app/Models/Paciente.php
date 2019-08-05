@@ -56,5 +56,8 @@ class Paciente extends Model
         'fecha_nac' => 'required'
     ];
 
-    
+    public function medicos()
+    {
+        return $this->hasMany('App\Models\PacienteMedico', 'id_paciente', 'id');
+    }    
 }

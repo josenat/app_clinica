@@ -3,10 +3,10 @@
         <thead>
             <tr>
                 <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Direccion</th>
-        <th>Contrato</th>
-                <th colspan="3">Action</th>
+                <th>Apellido</th>
+                <th>Direccion</th>
+                <th>Contrato</th>
+                <th colspan="3">Acción</th>
             </tr>
         </thead>
         <tbody>

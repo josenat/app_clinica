@@ -48,5 +48,9 @@ class Enfermedad extends Model
         'nombre' => 'required'
     ];
 
+    public function consultas()
+    {
+        return $this->hasMany('App\Models\Consulta', 'id_enfermedad', 'id');
+    }
     
 }

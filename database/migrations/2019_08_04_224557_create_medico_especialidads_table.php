@@ -13,12 +13,15 @@ class CreateMedicoEspecialidadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('medico__especialidads', function (Blueprint $table) {
+        Schema::create('medico_especialidads', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_especialidad');
-            $table->integer('id_medico');
+            $table->integer('id_especialidad')->unsigned();;
+            $table->integer('id_medico')->unsigned();;
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('id_especialidad')->references('id')->on('especialidads')->onDelete('cascade'); 
+            $table->foreign('id_medico')->references('id')->on('medicos')->onDelete('cascade');                         
         });
     }
 

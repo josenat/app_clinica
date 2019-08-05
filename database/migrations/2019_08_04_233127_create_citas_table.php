@@ -15,11 +15,13 @@ class CreateCitasTable extends Migration
     {
         Schema::create('citas', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_paciente_med');
+            $table->integer('id_paciente_med')->unsigned();;
             $table->dateTime('fecha_cita');
             $table->text('observacion');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('id_paciente_med')->references('id')->on('paciente_medicos')->onDelete('cascade');             
         });
     }
 

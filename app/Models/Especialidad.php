@@ -48,5 +48,8 @@ class Especialidad extends Model
         'nombre' => 'required'
     ];
 
-    
+    public function medicos()
+    {
+        return $this->hasMany('App\Models\Medico', 'id_medico', 'id');
+    }      
 }

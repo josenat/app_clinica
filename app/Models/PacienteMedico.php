@@ -49,5 +49,23 @@ class PacienteMedico extends Model
         'id_medico' => 'required'
     ];
 
-    
+    public function paciente()
+    {
+        return $this->belongsTo('App\Models\Paciente', 'id_paciente', 'id');
+    }   
+
+    public function medico()
+    {
+        return $this->belongsTo('App\Models\Medico', 'id_medico', 'id');
+    }     
+
+    public function consultas()
+    {
+        return $this->hasMany('App\Models\Consulta', 'id_paciente_med', 'id');
+    }         
+
+    public function citas()
+    {
+        return $this->hasMany('App\Models\Cita', 'id_paciente_med', 'id');
+    }           
 }

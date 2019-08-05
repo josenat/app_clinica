@@ -51,5 +51,8 @@ class Cita extends Model
         'fecha_cita' => 'required'
     ];
 
-    
+    public function paciente_medico()
+    {
+        return $this->belongsTo('App\Models\PacienteMedico', 'id_paciente_med', 'id');
+    }        
 }

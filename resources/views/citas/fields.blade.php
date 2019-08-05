@@ -1,6 +1,6 @@
 <!-- Id Paciente Med Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('id_paciente_med', 'Id Paciente Med:') !!}
+    {!! Form::label('id_paciente_med', 'Id:') !!}
     {!! Form::number('id_paciente_med', null, ['class' => 'form-control']) !!}
 </div>
 
@@ -21,12 +21,12 @@
 
 <!-- Observacion Field -->
 <div class="form-group col-sm-12 col-lg-12">
-    {!! Form::label('observacion', 'Observacion:') !!}
+    {!! Form::label('observacion', 'Observación:') !!}
     {!! Form::textarea('observacion', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('citas.index') !!}" class="btn btn-default">Cancel</a>
+    {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
+    <a href="{!! route('citas.index') !!}" class="btn btn-default">Cancelar</a>
 </div>

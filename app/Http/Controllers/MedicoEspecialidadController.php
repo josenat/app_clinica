@@ -11,7 +11,7 @@ use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
-class Medico_EspecialidadController extends AppBaseController
+class MedicoEspecialidadController extends AppBaseController
 {
     /** @var  Medico_EspecialidadRepository */
     private $medicoEspecialidadRepository;
@@ -32,7 +32,7 @@ class Medico_EspecialidadController extends AppBaseController
         $this->medicoEspecialidadRepository->pushCriteria(new RequestCriteria($request));
         $medicoEspecialidads = $this->medicoEspecialidadRepository->all();
 
-        return view('medico__especialidads.index')
+        return view('medico_especialidads.index')
             ->with('medicoEspecialidads', $medicoEspecialidads);
     }
 
@@ -43,7 +43,7 @@ class Medico_EspecialidadController extends AppBaseController
      */
     public function create()
     {
-        return view('medico__especialidads.create');
+        return view('medico_especialidads.create');
     }
 
     /**
@@ -81,7 +81,7 @@ class Medico_EspecialidadController extends AppBaseController
             return redirect(route('medicoEspecialidads.index'));
         }
 
-        return view('medico__especialidads.show')->with('medicoEspecialidad', $medicoEspecialidad);
+        return view('medico_especialidads.show')->with('medicoEspecialidad', $medicoEspecialidad);
     }
 
     /**
@@ -101,7 +101,7 @@ class Medico_EspecialidadController extends AppBaseController
             return redirect(route('medicoEspecialidads.index'));
         }
 
-        return view('medico__especialidads.edit')->with('medicoEspecialidad', $medicoEspecialidad);
+        return view('medico_especialidads.edit')->with('medicoEspecialidad', $medicoEspecialidad);
     }
 
     /**

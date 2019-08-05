@@ -56,5 +56,13 @@ class Medico extends Model
         'contrato' => 'required'
     ];
 
-    
+    public function pacientes()
+    {
+        return $this->hasMany('App\Models\PacienteMedico', 'id_medico', 'id');
+    }  
+
+    public function especialidades()
+    {
+        return $this->hasMany('App\Models\Especialidad', 'id_especialidad', 'id');
+    }         
 }

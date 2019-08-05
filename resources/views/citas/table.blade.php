@@ -4,8 +4,8 @@
             <tr>
                 <th>Id Paciente Med</th>
         <th>Fecha Cita</th>
-        <th>Observacion</th>
-                <th colspan="3">Action</th>
+        <th>Observación</th>
+                <th colspan="3">Acción</th>
             </tr>
         </thead>
         <tbody>

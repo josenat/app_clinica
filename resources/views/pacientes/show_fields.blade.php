@@ -18,13 +18,13 @@
 
 <!-- Fecha Nac Field -->
 <div class="form-group">
-    {!! Form::label('fecha_nac', 'Fecha Nac:') !!}
+    {!! Form::label('fecha_nac', 'Fecha Nac.:') !!}
     <p>{!! $paciente->fecha_nac !!}</p>
 </div>
 
 <!-- Direccion Field -->
 <div class="form-group">
-    {!! Form::label('direccion', 'Direccion:') !!}
+    {!! Form::label('direccion', 'Dirección:') !!}
     <p>{!! $paciente->direccion !!}</p>
 </div>
 

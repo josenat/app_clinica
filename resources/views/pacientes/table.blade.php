@@ -4,9 +4,9 @@
             <tr>
                 <th>Nombre</th>
         <th>Apellido</th>
-        <th>Fecha Nac</th>
-        <th>Direccion</th>
-                <th colspan="3">Action</th>
+        <th>Fecha Nac.</th>
+        <th>Dirección</th>
+                <th colspan="3">Acción</th>
             </tr>
         </thead>
         <tbody>

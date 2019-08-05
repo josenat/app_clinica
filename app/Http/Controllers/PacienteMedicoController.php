@@ -11,7 +11,7 @@ use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 
-class Paciente_MedicoController extends AppBaseController
+class PacienteMedicoController extends AppBaseController
 {
     /** @var  Paciente_MedicoRepository */
     private $pacienteMedicoRepository;
@@ -32,7 +32,7 @@ class Paciente_MedicoController extends AppBaseController
         $this->pacienteMedicoRepository->pushCriteria(new RequestCriteria($request));
         $pacienteMedicos = $this->pacienteMedicoRepository->all();
 
-        return view('paciente__medicos.index')
+        return view('paciente_medicos.index')
             ->with('pacienteMedicos', $pacienteMedicos);
     }
 
@@ -43,7 +43,7 @@ class Paciente_MedicoController extends AppBaseController
      */
     public function create()
     {
-        return view('paciente__medicos.create');
+        return view('paciente_medicos.create');
     }
 
     /**
@@ -81,7 +81,7 @@ class Paciente_MedicoController extends AppBaseController
             return redirect(route('pacienteMedicos.index'));
         }
 
-        return view('paciente__medicos.show')->with('pacienteMedico', $pacienteMedico);
+        return view('paciente_medicos.show')->with('pacienteMedico', $pacienteMedico);
     }
 
     /**
@@ -101,7 +101,7 @@ class Paciente_MedicoController extends AppBaseController
             return redirect(route('pacienteMedicos.index'));
         }
 
-        return view('paciente__medicos.edit')->with('pacienteMedico', $pacienteMedico);
+        return view('paciente_medicos.edit')->with('pacienteMedico', $pacienteMedico);
     }
 
     /**

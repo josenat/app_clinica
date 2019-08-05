@@ -3,8 +3,8 @@
         <thead>
             <tr>
                 <th>Nombre</th>
-        <th>Sistema</th>
-                <th colspan="3">Action</th>
+                <th>Sistema</th>
+                <th colspan="3">Acción</th>
             </tr>
         </thead>
         <tbody>
