@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Sistema Clínica</title>
+    <title>Clínica</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
     <!-- Bootstrap 3.3.7 -->
@@ -35,7 +35,7 @@
 
             <!-- Logo -->
             <a href="#" class="logo">
-                <b>Sistema Clínica</b>
+                <b>Clínica</b>
             </a>
 
             <!-- Header Navbar -->
@@ -69,10 +69,7 @@
                                 </li>
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
-                                    <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Perfil</a>
-                                    </div>
-                                    <div class="pull-right">
+                                    <div class="text-center">
                                         <a href="{!! url('/logout') !!}" class="btn btn-default btn-flat"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             Cerrar sesión
@@ -98,7 +95,7 @@
 
         <!-- Main Footer -->
         <footer class="main-footer" style="max-height: 100px;text-align: center">
-            <strong>Copyright © 2019 <a href="#">Compañia</a>.</strong> Todos los derechos reservados.
+            <strong>Copyright © 2019 <a href="#">Compañía</a>.</strong> Todos los derechos reservados.
         </footer>
 
     </div>
@@ -118,7 +115,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{!! url('/') !!}">
-                    Sistema Clínica
+                    Clínica
                 </a>
             </div>
 

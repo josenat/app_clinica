@@ -15,8 +15,8 @@ class CreatePacienteMedicosTable extends Migration
     {
         Schema::create('paciente_medicos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_paciente')->unsigned();;
-            $table->integer('id_medico')->unsigned();;
+            $table->integer('id_paciente')->unsigned();
+            $table->integer('id_medico')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 
@@ -32,6 +32,6 @@ class CreatePacienteMedicosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('paciente__medicos');
+        Schema::drop('paciente_medicos');
     }
 }

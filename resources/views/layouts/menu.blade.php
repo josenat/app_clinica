@@ -22,8 +22,3 @@
 <li class="{{ Request::is('especialidads*') ? 'active' : '' }}">
     <a href="{!! route('especialidads.index') !!}"><i class="fa fa-edit"></i><span>Especialidades Médicas</span></a>
 </li>
-
-
-
-
-

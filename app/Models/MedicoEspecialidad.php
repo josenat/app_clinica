@@ -17,7 +17,7 @@ class MedicoEspecialidad extends Model
 {
     use SoftDeletes;
 
-    public $table = 'medico__especialidads';
+    public $table = 'medico_especialidads';
     
 
     protected $dates = ['deleted_at'];

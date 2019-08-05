@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCitasTable extends Migration
+class CreateDocumentosTable extends Migration
 {
 
     /**
@@ -13,15 +13,14 @@ class CreateCitasTable extends Migration
      */
     public function up()
     {
-        Schema::create('citas', function (Blueprint $table) {
+        Schema::create('documentos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_paciente_med')->unsigned();
-            $table->dateTime('fecha_cita');
-            $table->text('observacion');
+            $table->integer('id_consulta')->unsigned();
+            $table->string('path');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('id_paciente_med')->references('id')->on('paciente_medicos')->onDelete('cascade');             
+            $table->foreign('id_consulta')->references('id')->on('consultas')->onDelete('cascade');            
         });
     }
 
@@ -32,6 +31,6 @@ class CreateCitasTable extends Migration
      */
     public function down()
     {
-        Schema::drop('citas');
+        Schema::drop('documentos');
     }
 }

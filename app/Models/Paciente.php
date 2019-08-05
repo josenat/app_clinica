@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string nombre
  * @property string apellido
  * @property string fecha_nac
- * @property string direccion
+ * @property string direccion 
  */
 class Paciente extends Model
 {

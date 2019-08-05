@@ -39,3 +39,5 @@ Route::resource('consultas', 'ConsultaController');
 Route::resource('consultas', 'ConsultaController');
 
 Route::resource('citas', 'CitaController');
+
+Route::resource('documentos', 'DocumentoController');

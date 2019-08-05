@@ -15,8 +15,8 @@ class CreateMedicoEspecialidadsTable extends Migration
     {
         Schema::create('medico_especialidads', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_especialidad')->unsigned();;
-            $table->integer('id_medico')->unsigned();;
+            $table->integer('id_especialidad')->unsigned();
+            $table->integer('id_medico')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 
@@ -32,6 +32,6 @@ class CreateMedicoEspecialidadsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('medico__especialidads');
+        Schema::drop('medico_especialidads');
     }
 }

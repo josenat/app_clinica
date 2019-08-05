@@ -29,7 +29,8 @@ class Consulta extends Model
         'id_paciente_med',
         'id_enfermedad',
         'motivo',
-        'tratamiento'
+        'tratamiento', 
+        'id_documento'       
     ];
 
     /**
@@ -42,7 +43,8 @@ class Consulta extends Model
         'id_paciente_med' => 'integer',
         'id_enfermedad' => 'integer',
         'motivo' => 'string',
-        'tratamiento' => 'string'
+        'tratamiento' => 'string',
+        'path' => 'string'
     ];
 
     /**
@@ -54,10 +56,15 @@ class Consulta extends Model
         'id_paciente_med' => 'required',
         'id_enfermedad' => 'required',
         'motivo' => 'required'
-    ];
+    ];   
 
     public function enfermedad()
     {
         return $this->belongsTo('App\Models\Enfermedad', 'id_enfermedad', 'id');
-    }       
+    } 
+
+    public function documentos()
+    {
+        return $this->hasMany('App\Models\Documento', 'id_consulta', 'id');
+    }            
 }
