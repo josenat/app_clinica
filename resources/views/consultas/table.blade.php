@@ -2,7 +2,7 @@
     <table class="table" id="consultas-table">
         <thead>
             <tr>
-                <th>Id Paciente Med</th>
+                <th>Número</th>
         <th>Id Enfermedad</th>
         <th>Motivo</th>
         <th>Tratamiento</th>

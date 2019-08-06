@@ -16,6 +16,8 @@ class MedicoController extends AppBaseController
     /** @var  MedicoRepository */
     private $medicoRepository;
 
+    private $contratos = ['TEMPORAL' => 1, 'PERMANENTE' => 2];
+
     public function __construct(MedicoRepository $medicoRepo)
     {
         $this->medicoRepository = $medicoRepo;
@@ -30,10 +32,9 @@ class MedicoController extends AppBaseController
     public function index(Request $request)
     {
         $this->medicoRepository->pushCriteria(new RequestCriteria($request));
-        $medicos = $this->medicoRepository->all();
-
-        return view('medicos.index')
-            ->with('medicos', $medicos);
+        $medicos = $this->medicoRepository->all();        
+ 
+        return view('medicos.index', compact('medicos'));
     }
 
     /**
@@ -43,7 +44,9 @@ class MedicoController extends AppBaseController
      */
     public function create()
     {
-        return view('medicos.create');
+        $contratos = array_flip($this->contratos);
+
+        return view('medicos.create', compact('contratos'));
     }
 
     /**
@@ -81,7 +84,9 @@ class MedicoController extends AppBaseController
             return redirect(route('medicos.index'));
         }
 
-        return view('medicos.show')->with('medico', $medico);
+        $contrato = array_search($medico->contrato, $this->contratos, false);
+
+        return view('medicos.show', compact('medico', 'contrato'));
     }
 
     /**
@@ -101,7 +106,20 @@ class MedicoController extends AppBaseController
             return redirect(route('medicos.index'));
         }
 
-        return view('medicos.edit')->with('medico', $medico);
+        // intercambiar clave-valor arreglo 
+        $array = array_flip($this->contratos); 
+        // obtener nombre de contrato del medico
+        $nombre_contrato = array_search($medico->contrato, $this->contratos, false);        
+        // crear nuevo arreglo que como primer lugar tenga los datos del medico (input selected) 
+        $contratos  = [$medico->contrato => $nombre_contrato]; 
+        // eliminar elemento del arreglo original para evitar que se repita en el nuevo arreglo
+        unset($array[$medico->contrato]); 
+        // insertar en el nuevo arreglo los datos restantes del arreglo original
+        foreach ($array as $key => $value) {
+            $contratos[$key] = $value;
+        }
+
+        return view('medicos.edit', compact('medico', 'contratos'));
     }
 
     /**

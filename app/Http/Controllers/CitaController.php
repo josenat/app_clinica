@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use App\Models\Paciente;
+use App\Models\Medico;
+use App\Models\PacienteMedico;
 
 class CitaController extends AppBaseController
 {
@@ -30,10 +33,9 @@ class CitaController extends AppBaseController
     public function index(Request $request)
     {
         $this->citaRepository->pushCriteria(new RequestCriteria($request));
-        $citas = $this->citaRepository->all();
+        $citas = $this->citaRepository->all();  
 
-        return view('citas.index')
-            ->with('citas', $citas);
+        return view('citas.index', compact('citas'));
     }
 
     /**
@@ -43,7 +45,10 @@ class CitaController extends AppBaseController
      */
     public function create()
     {
-        return view('citas.create');
+        $pacientes = Paciente::pluck('nombre', 'id');
+        $medicos   = Medico::pluck('nombre', 'id');
+
+        return view('citas.create', compact('pacientes', 'medicos'));
     }
 
     /**
@@ -54,13 +59,41 @@ class CitaController extends AppBaseController
      * @return Response
      */
     public function store(CreateCitaRequest $request)
-    {
-        $input = $request->all();
+    {  
+        // variable auxiliar
+        $id_relacion = 0;
+        // formatear fecha
+        $request{'fecha_cita'} = self::formatDate($request{'fecha_cita'}, 'DD-MM-YYYY', 'YYYY-MM-DD');
+        // si ya existe la relacion paciente medico
+        if ($relacion = PacienteMedico::where('id_paciente','=',$request{'id_paciente'})
+        ->where('id_medico','=',$request{'id_medico'})
+        ->first(['id'])) {
+            // obtener el id de dicha relacion
+            $id_relacion = $relacion->id;
+        
+        } else {   
+            // sino obtenemos el id de una nueva relacion a crear
+            $id_relacion = PacienteMedico::create([
+                "id_paciente" => $request{'id_paciente'},
+                "id_medico"   => $request{'id_medico'}
+                ])->id;    
+        }
 
-        $cita = $this->citaRepository->create($input);
-
-        Flash::success('Cita saved successfully.');
-
+        // si obtuvimos una relacion entre paciente y medico
+        if ($id_relacion > 0) {
+            // guardar el nuevo id de la relacion que existe entre el paciente y el medico          
+            $request{'id_paciente_med'} = $id_relacion;
+            // cargar todos los datos
+            $input = $request->all();
+            // crear cita en funcion de la relacion paciente medico generada y demas datos
+            $cita  = $this->citaRepository->create($input);
+            // mensaje de exito
+            Flash::success('Cita saved successfully.');            
+        } else {
+            // mensaje error de operacion
+            Flash::error('A problem has occurred');
+        }
+ 
         return redirect(route('citas.index'));
     }
 
@@ -101,7 +134,13 @@ class CitaController extends AppBaseController
             return redirect(route('citas.index'));
         }
 
-        return view('citas.edit')->with('cita', $cita);
+        $pacientes = Paciente::pluck('nombre', 'id');
+        $pacientes->prepend($cita->paciente_medico->paciente->nombre, $cita->paciente_medico->paciente->id);
+
+        $medicos   = Medico::pluck('nombre', 'id');
+        $medicos->prepend($cita->paciente_medico->medico->nombre, $cita->paciente_medico->medico->id);
+
+        return view('citas.edit', compact('cita', 'pacientes', 'medicos'));
     }
 
     /**
@@ -113,18 +152,45 @@ class CitaController extends AppBaseController
      * @return Response
      */
     public function update($id, UpdateCitaRequest $request)
-    {
-        $cita = $this->citaRepository->findWithoutFail($id);
-
-        if (empty($cita)) {
-            Flash::error('Cita not found');
-
-            return redirect(route('citas.index'));
+    {  
+        // variable auxiliar
+        $id_relacion = 0;
+        // formatear fecha
+        $request{'fecha_cita'} = self::formatDate($request{'fecha_cita'}, 'DD-MM-YYYY', 'YYYY-MM-DD');
+        // si ya existe la relacion paciente medico 
+        if ($relacion = PacienteMedico::where('id_paciente','=',$request{'id_paciente'})
+        ->where('id_medico','=',$request{'id_medico'})
+        ->first(['id'])) {
+            // obtener el id de dicha relacion 
+            $id_relacion = $relacion->id;
+        
+        } else {   
+            // sino obtenemos el id de una nueva relacion a crear
+            $id_relacion = PacienteMedico::create([
+                "id_paciente" => $request{'id_paciente'},
+                "id_medico"   => $request{'id_medico'}
+                ])->id;    
         }
 
-        $cita = $this->citaRepository->update($request->all(), $id);
+        // si obtuvimos una relacion entre paciente y medico
+        if ($id_relacion > 0) {
+            // guardar el nuevo id de la relacion existente entre el paciente y el medico          
+            $request{'id_paciente_med'} = $id_relacion;
+            // validar datos
+            $cita = $this->citaRepository->findWithoutFail($id);
+            if (empty($cita)) {
+                Flash::error('Cita not found');
 
-        Flash::success('Cita updated successfully.');
+                return redirect(route('citas.index')); 
+            }            
+            // actualizar cita en funcion de la relacion paciente medico generada y demas datos
+            $cita = $this->citaRepository->update($request->all(), $id);
+            // mensaje de exito
+            Flash::success('Cita updated successfully.');            
+        } else {
+            // mensaje error de operacion
+            Flash::error('A problem has occurred');
+        }
 
         return redirect(route('citas.index'));
     }

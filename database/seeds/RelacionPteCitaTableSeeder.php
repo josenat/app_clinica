@@ -18,7 +18,8 @@ class RelacionPteCitaTableSeeder extends Seeder
         for ($i=1; $i <= 3; $i++) { 
 	        Cita::create([
 		        'id_paciente_med' => $i,
-		        'fecha_cita'      => $faker->date($format = 'Y-m-d', $min = 'now')		        		
+		        'fecha_cita'      => $faker->date($format = 'Y-m-d', $min = 'now'),
+                'hora_cita'       => $faker->date($format = 'H:i:s', rand(1,86364))            		        		
 	        ]);
 	    }
     }

@@ -1,9 +1,3 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $medico->id !!}</p>
-</div>
-
 <!-- Nombre Field -->
 <div class="form-group">
     {!! Form::label('nombre', 'Nombre:') !!}
@@ -25,7 +19,7 @@
 <!-- Contrato Field -->
 <div class="form-group">
     {!! Form::label('contrato', 'Contrato:') !!}
-    <p>{!! $medico->contrato !!}</p>
+    <p>{!! $contrato !!}</p>
 </div>
 
 <!-- Created At Field -->

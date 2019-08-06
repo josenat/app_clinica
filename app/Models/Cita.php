@@ -27,6 +27,7 @@ class Cita extends Model
     public $fillable = [
         'id_paciente_med',
         'fecha_cita',
+        'hora_cita',
         'observacion'
     ];
 
@@ -46,10 +47,15 @@ class Cita extends Model
      *
      * @var array
      */
-    public static $rules = [
-        'id_paciente_med' => 'required',
+    public static $rules = [ 
         'fecha_cita' => 'required'
     ];
+
+    public function getFechaCitaAttribute($date)
+    {
+        // si no será leído por DataTables JS puede usar el siguiente código:
+        return \Carbon\Carbon::parse($date)->format('d-m-Y'); // devolverá: d-m-Y 
+    }     
 
     public function paciente_medico()
     {

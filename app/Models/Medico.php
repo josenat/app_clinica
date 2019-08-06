@@ -26,6 +26,7 @@ class Medico extends Model
 
 
     public $fillable = [
+        'dni',
         'nombre',
         'apellido',
         'direccion',
@@ -39,6 +40,7 @@ class Medico extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'dni' => 'string',
         'nombre' => 'string',
         'apellido' => 'string',
         'direccion' => 'string',
@@ -51,6 +53,7 @@ class Medico extends Model
      * @var array
      */
     public static $rules = [
+        'dni' => 'required',
         'nombre' => 'required',
         'apellido' => 'required',
         'contrato' => 'required'

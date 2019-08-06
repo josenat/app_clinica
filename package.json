@@ -20,6 +20,15 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
-        "vue": "^2.5.17"
+        "vue": "^2.5.17",
+        "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "@pencilpix/vue2-clock-picker": "^0.1.1",
+        "fullcalendar": "^3.9.0",
+        "moment": "^2.22.1",
+        "toastr": "^2.1.4",
+        "vue-progressbar": "^0.7.5",
+        "vue2-datepicker": "^2.4.0"
     }
 }

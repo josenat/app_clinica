@@ -11,6 +11,17 @@
         "inIndex": false
     },
     {
+        "name": "dni",
+        "dbType": "string",
+        "htmlType": "text",
+        "validations": "required",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true
+    },    
+    {
         "name": "nombre",
         "dbType": "string",
         "htmlType": "text",

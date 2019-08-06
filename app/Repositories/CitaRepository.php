@@ -22,6 +22,7 @@ class CitaRepository extends BaseRepository
     protected $fieldSearchable = [
         'id_paciente_med',
         'fecha_cita',
+        'hora_cita',
         'observacion'
     ];
 

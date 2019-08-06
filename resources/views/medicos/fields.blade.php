@@ -19,7 +19,7 @@
 <!-- Contrato Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('contrato', 'Contrato:') !!}
-    {!! Form::number('contrato', null, ['class' => 'form-control']) !!}
+    {{ Form::select('contrato', $contratos, null, ['class' => 'form-control']) }}
 </div>
 
 <!-- Submit Field -->

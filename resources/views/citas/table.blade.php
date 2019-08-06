@@ -2,18 +2,24 @@
     <table class="table" id="citas-table">
         <thead>
             <tr>
-                <th>Id Paciente Med</th>
-        <th>Fecha Cita</th>
-        <th>Observación</th>
+                <th>DNI Pac.</th>
+                <th>Paciente</th>
+                <th>DNI Med.</th>
+                <th>Medico</th>
+                <th>Fecha</th>
+                <th>Hora</th>
                 <th colspan="3">Acción</th>
             </tr>
         </thead>
         <tbody>
         @foreach($citas as $cita)
             <tr>
-                <td>{!! $cita->id_paciente_med !!}</td>
-            <td>{!! $cita->fecha_cita !!}</td>
-            <td>{!! $cita->observacion !!}</td>
+                <td>{!! $cita->paciente_medico->paciente->dni !!}</td>
+                <td>{!! $cita->paciente_medico->paciente->nombre !!}</td> 
+                <td>{!! $cita->paciente_medico->medico->dni !!}</td> 
+                <td>{!! $cita->paciente_medico->medico->nombre !!}</td>
+                <td>{!! $cita->fecha_cita !!}</td>
+                <td>{!! $cita->hora_cita !!}</td>
                 <td>
                     {!! Form::open(['route' => ['citas.destroy', $cita->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

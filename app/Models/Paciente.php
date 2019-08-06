@@ -26,6 +26,7 @@ class Paciente extends Model
 
 
     public $fillable = [
+        'dni',
         'nombre',
         'apellido',
         'fecha_nac',
@@ -39,6 +40,7 @@ class Paciente extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'dni' => 'string',
         'nombre' => 'string',
         'apellido' => 'string',
         'fecha_nac' => 'date',
@@ -51,6 +53,7 @@ class Paciente extends Model
      * @var array
      */
     public static $rules = [
+        'dni' => 'required',
         'nombre' => 'required',
         'apellido' => 'required',
         'fecha_nac' => 'required'

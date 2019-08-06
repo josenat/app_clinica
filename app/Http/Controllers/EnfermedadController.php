@@ -55,6 +55,8 @@ class EnfermedadController extends AppBaseController
      */
     public function store(CreateEnfermedadRequest $request)
     {
+        $request{'nombre'}  = strtoupper($request{'nombre'}); 
+        
         $input = $request->all();
 
         $enfermedad = $this->enfermedadRepository->create($input);

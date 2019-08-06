@@ -27,4 +27,33 @@ class AppBaseController extends Controller
     {
         return Response::json(ResponseUtil::makeError($error), $code);
     }
+
+    public function formatDate($value, $origen, $format) 
+    {
+    	if ($origen == 'DD-MM-YYYY' && $format == 'YYYY-MM-DD') {
+			$date    = str_replace('/', '-', $value );
+			$newDate = date("Y-m-d", strtotime($date));
+    	}
+
+    	if ($origen == 'YYYY-MM-DD' && $format == 'DD-MM-YYYY') {
+			$date    = str_replace('/', '-', $value );
+			$newDate = date("d-m-Y", strtotime($date));			
+    	}
+
+    	return $newDate;   	
+	}
+
+    public function changeKey($array, $old_key, $new_key) 
+    { 
+        if (!array_key_exists($old_key, $array)) {
+            
+            return $array;
+        }
+        $keys = array_keys($array); 
+        $keys[array_search($old_key, $keys)] = $new_key; 
+        
+        return array_combine($keys, $array); 
+    }    
+     
 }
+
