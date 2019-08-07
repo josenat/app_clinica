@@ -32,6 +32,12 @@ class EspecialidadController extends AppBaseController
         $this->especialidadRepository->pushCriteria(new RequestCriteria($request));
         $especialidads = $this->especialidadRepository->all();
 
+        // si la solicitud es a través de ajax     
+        if ($request->ajax()) {
+            // retornar data en formato json
+            return response()->json($especialidads); 
+        }
+
         return view('especialidads.index')
             ->with('especialidads', $especialidads);
     }

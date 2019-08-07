@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Paciente_Medico;
+use App\Models\PacienteMedico;
 use InfyOm\Generator\Common\BaseRepository;
 
 /**
@@ -14,7 +14,7 @@ use InfyOm\Generator\Common\BaseRepository;
  * @method Paciente_Medico find($id, $columns = ['*'])
  * @method Paciente_Medico first($columns = ['*'])
 */
-class Paciente_MedicoRepository extends BaseRepository
+class PacienteMedicoRepository extends BaseRepository
 {
     /**
      * @var array
@@ -29,6 +29,6 @@ class Paciente_MedicoRepository extends BaseRepository
      **/
     public function model()
     {
-        return Paciente_Medico::class;
+        return PacienteMedico::class;
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreatePaciente_MedicoRequest;
-use App\Http\Requests\UpdatePaciente_MedicoRequest;
-use App\Repositories\Paciente_MedicoRepository;
+use App\Http\Requests\CreatePacienteMedicoRequest;
+use App\Http\Requests\UpdatePacienteMedicoRequest;
+use App\Repositories\PacienteMedicoRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
@@ -13,10 +13,10 @@ use Response;
 
 class PacienteMedicoController extends AppBaseController
 {
-    /** @var  Paciente_MedicoRepository */
+    /** @var  PacienteMedicoRepository */
     private $pacienteMedicoRepository;
 
-    public function __construct(Paciente_MedicoRepository $pacienteMedicoRepo)
+    public function __construct(PacienteMedicoRepository $pacienteMedicoRepo)
     {
         $this->pacienteMedicoRepository = $pacienteMedicoRepo;
     }
@@ -49,11 +49,11 @@ class PacienteMedicoController extends AppBaseController
     /**
      * Store a newly created Paciente_Medico in storage.
      *
-     * @param CreatePaciente_MedicoRequest $request
+     * @param CreatePacienteMedicoRequest $request
      *
      * @return Response
      */
-    public function store(CreatePaciente_MedicoRequest $request)
+    public function store(CreatePacienteMedicoRequest $request)
     {
         $input = $request->all();
 
@@ -108,11 +108,11 @@ class PacienteMedicoController extends AppBaseController
      * Update the specified Paciente_Medico in storage.
      *
      * @param  int              $id
-     * @param UpdatePaciente_MedicoRequest $request
+     * @param UpdatePacienteMedicoRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdatePaciente_MedicoRequest $request)
+    public function update($id, UpdatePacienteMedicoRequest $request)
     {
         $pacienteMedico = $this->pacienteMedicoRepository->findWithoutFail($id);
 

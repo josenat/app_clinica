@@ -17,13 +17,13 @@
                         <!-- Paciente Field -->
                         <div class="form-group col-sm-6">
                             {!! Form::label('paciente', 'Paciente:') !!}
-                            {{ Form::select('id_paciente', $pacientes, null, ['class' => 'form-control']) }}
+                            {{ Form::select('id_paciente', $pacientes, null, ['class' => 'form-control', 'placeholder' => 'SELECCIONE']) }}
                         </div>
 
                         <!-- Medico Field -->
                         <div class="form-group col-sm-6">
                             {!! Form::label('medico', 'Médico:') !!}
-                            {{ Form::select('id_medico', $medicos, null, ['class' => 'form-control']) }}
+                            {{ Form::select('id_medico', $medicos, null, ['class' => 'form-control', 'placeholder' => 'SELECCIONE']) }}
                         </div>
 
                         <!-- Fecha Cita Field -->

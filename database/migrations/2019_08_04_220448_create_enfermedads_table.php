@@ -16,7 +16,7 @@ class CreateEnfermedadsTable extends Migration
         Schema::create('enfermedads', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->string('sistema');
+            $table->string('sistema')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

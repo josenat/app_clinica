@@ -45,7 +45,8 @@ class Enfermedad extends Model
      * @var array
      */
     public static $rules = [
-        'nombre' => 'required'
+        'nombre' => 'required',
+        'sistema' => 'required'
     ];
 
     public function consultas()

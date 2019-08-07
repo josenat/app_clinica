@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Medico_Especialidad;
+use App\Models\MedicoEspecialidad;
 use InfyOm\Generator\Common\BaseRepository;
 
 /**
@@ -14,14 +14,15 @@ use InfyOm\Generator\Common\BaseRepository;
  * @method Medico_Especialidad find($id, $columns = ['*'])
  * @method Medico_Especialidad first($columns = ['*'])
 */
-class Medico_EspecialidadRepository extends BaseRepository
+class MedicoEspecialidadRepository extends BaseRepository
 {
     /**
      * @var array
      */
     protected $fieldSearchable = [
-        'id_especialidad',
-        'id_medico'
+        'id_medico',
+        'id_especialidad'
+        
     ];
 
     /**
@@ -29,6 +30,6 @@ class Medico_EspecialidadRepository extends BaseRepository
      **/
     public function model()
     {
-        return Medico_Especialidad::class;
+        return MedicoEspecialidad::class;
     }
 }

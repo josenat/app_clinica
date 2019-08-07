@@ -18,7 +18,7 @@ class CreateMedicosTable extends Migration
             $table->string('dni')->unique();
             $table->string('nombre');
             $table->string('apellido');
-            $table->string('direccion');
+            $table->string('direccion')->nullable();
             $table->integer('contrato');
             $table->timestamps();
             $table->softDeletes();

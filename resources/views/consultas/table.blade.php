@@ -2,20 +2,20 @@
     <table class="table" id="consultas-table">
         <thead>
             <tr>
-                <th>Número</th>
-        <th>Id Enfermedad</th>
-        <th>Motivo</th>
-        <th>Tratamiento</th>
+                <th>Fecha</th>
+                <th>Enfermedad</th>
+                <th>Motivo</th>
+                <th>Tratamiento</th>
                 <th colspan="3">Acción</th>
             </tr>
         </thead>
         <tbody>
         @foreach($consultas as $consulta)
             <tr>
-                <td>{!! $consulta->id_paciente_med !!}</td>
-            <td>{!! $consulta->id_enfermedad !!}</td>
-            <td>{!! $consulta->motivo !!}</td>
-            <td>{!! $consulta->tratamiento !!}</td>
+                <td>{!! $consulta->created_at !!}</td>
+                <td>{!! $consulta->enfermedad->nombre !!}</td>
+                <td>{!! $consulta->motivo !!}</td>
+                <td>{!! $consulta->tratamiento !!}</td>
                 <td>
                     {!! Form::open(['route' => ['consultas.destroy', $consulta->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Medico Especialidad
+            Nueva Asignación
         </h1>
     </section>
     <div class="content">
@@ -14,7 +14,7 @@
                 <div class="row">
                     {!! Form::open(['route' => 'medicoEspecialidads.store']) !!}
 
-                        @include('medico__especialidads.fields')
+                        @include('medico_especialidads.fields')
 
                     {!! Form::close() !!}
                 </div>

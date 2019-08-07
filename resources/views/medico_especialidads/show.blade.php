@@ -10,7 +10,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row" style="padding-left: 20px">
-                    @include('medico__especialidads.show_fields')
+                    @include('medico_especialidads.show_fields')
                     <a href="{!! route('medicoEspecialidads.index') !!}" class="btn btn-default">Back</a>
                 </div>
             </div>

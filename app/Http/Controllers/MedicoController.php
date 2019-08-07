@@ -34,6 +34,12 @@ class MedicoController extends AppBaseController
         $this->medicoRepository->pushCriteria(new RequestCriteria($request));
         $medicos = $this->medicoRepository->all();        
  
+        // si la solicitud es a través de ajax     
+        if ($request->ajax()) {
+            // retornar data en formato json
+            return response()->json($medicos);        
+        } 
+ 
         return view('medicos.index', compact('medicos'));
     }
 

@@ -8,6 +8,26 @@
 // Bootstrap
 //@import '~bootstrap/scss/bootstrap';
 
+// Toastr
+@import '~toastr/toastr.scss';
+
+// Full Calendar
+@import "~fullcalendar/dist/fullcalendar.min.css";
+
+//fonts
+$font_0: Oxygen;
+$font_1: sans-serif;
+body {
+	font-family: $font_0, $font_1;
+}
+
+.toast {
+	opacity: 1 !important;
+}
+[v-cloak] {
+	display: none;
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

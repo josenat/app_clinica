@@ -19,7 +19,7 @@ class CreatePacientesTable extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->date('fecha_nac');
-            $table->string('direccion');
+            $table->string('direccion')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

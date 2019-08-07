@@ -18,7 +18,7 @@ class CreateConsultasTable extends Migration
             $table->integer('id_paciente_med')->unsigned();
             $table->integer('id_enfermedad')->unsigned();
             $table->text('motivo');
-            $table->text('tratamiento');            
+            $table->text('tratamiento')->nullable();            
             $table->timestamps();
             $table->softDeletes();
 

@@ -11,8 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function() {   
+    // si el usuario está logueado
+    if (Auth::check()) {  
+        return redirect()->action('HomeController@index'); 
+    }
+    // si no está logueado lo enviamos a la vista de inicio de sesión
+    return redirect('/login');
 });
 
 
@@ -20,21 +25,17 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::resource('enfermedads', 'EnfermedadController');
-
 Route::resource('medicos', 'MedicoController');
-
-Route::resource('pacientes', 'PacienteController');
 
 Route::resource('especialidads', 'EspecialidadController');
 
-Route::resource('diagnosticos', 'DiagnosticoController');
+Route::resource('medicoEspecialidads', 'MedicoEspecialidadController');
 
-Route::resource('pacienteMedicos', 'Paciente_MedicoController');
+Route::resource('pacientes', 'PacienteController');
 
-Route::resource('medicoEspecialidads', 'Medico_EspecialidadController');
+Route::resource('pacienteMedicos', 'PacienteMedicoController');
 
-Route::resource('consultas', 'ConsultaController');
+Route::resource('enfermedads', 'EnfermedadController');
 
 Route::resource('consultas', 'ConsultaController');
 

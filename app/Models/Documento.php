@@ -46,11 +46,11 @@ class Documento extends Model
      */
     public static $rules = [
         'id_consulta' => 'required',
-        'path' => 'required'
+        'path' => 'required|mimes:pdf,jpg,jpeg,png,doc,docx,xls,xlsx'
     ];
 
     /**
-     * Subir archivos
+     * Guardar archivos
      */
     public function setPathAttribute($path)
     {
@@ -59,7 +59,7 @@ class Documento extends Model
             // obtenemos la extensión de archivo original
             $ext = \File::extension($path->getClientOriginalName());
             // creamos un nuevo nombre de archivo de la siguiente forma
-            $name = $this->attributes['id_paciente_med'] . '.' . $ext;
+            $name = $this->attributes['id'] . '.' . $ext;
             // guardamos en base datos el nuevo nombre de archivo
             $this->attributes['path'] = $name;
             // y luego guardamos el archivo en local

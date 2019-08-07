@@ -30,7 +30,8 @@ class Consulta extends Model
         'id_enfermedad',
         'motivo',
         'tratamiento', 
-        'id_documento'       
+        'id_documento',
+        'created_at',       
     ];
 
     /**
@@ -44,7 +45,6 @@ class Consulta extends Model
         'id_enfermedad' => 'integer',
         'motivo' => 'string',
         'tratamiento' => 'string',
-        'path' => 'string'
     ];
 
     /**
@@ -53,10 +53,19 @@ class Consulta extends Model
      * @var array
      */
     public static $rules = [
-        'id_paciente_med' => 'required',
-        'id_enfermedad' => 'required',
         'motivo' => 'required'
-    ];   
+    ];     
+
+    public function getCreatedAtAttribute($date)
+    {
+        // si no será leído por DataTables JS puede usar el siguiente código:
+        return \Carbon\Carbon::parse($date)->format('d-m-Y'); // devolverá: d-m-Y 
+    }  
+
+    public function paciente_medico()
+    {
+        return $this->belongsTo('App\Models\PacienteMedico', 'id_paciente_med', 'id');
+    }           
 
     public function enfermedad()
     {

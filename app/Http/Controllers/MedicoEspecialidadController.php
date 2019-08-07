@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateMedico_EspecialidadRequest;
-use App\Http\Requests\UpdateMedico_EspecialidadRequest;
-use App\Repositories\Medico_EspecialidadRepository;
+use App\Http\Requests\CreateMedicoEspecialidadRequest;
+use App\Http\Requests\UpdateMedicoEspecialidadRequest;
+use App\Repositories\MedicoEspecialidadRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use App\Models\MedicoEspecialidad;
+use App\Models\Medico;
+use App\Models\Especialidad;
 
 class MedicoEspecialidadController extends AppBaseController
 {
     /** @var  Medico_EspecialidadRepository */
     private $medicoEspecialidadRepository;
 
-    public function __construct(Medico_EspecialidadRepository $medicoEspecialidadRepo)
+    public function __construct(MedicoEspecialidadRepository $medicoEspecialidadRepo)
     {
         $this->medicoEspecialidadRepository = $medicoEspecialidadRepo;
     }
@@ -28,10 +31,33 @@ class MedicoEspecialidadController extends AppBaseController
      * @return Response
      */
     public function index(Request $request)
-    {
+    {  
         $this->medicoEspecialidadRepository->pushCriteria(new RequestCriteria($request));
         $medicoEspecialidads = $this->medicoEspecialidadRepository->all();
 
+        // si la solicitud es a través de ajax     
+        if ($request->ajax()) {
+            // si la operacion es para validar la existencia de una asignacion determinada
+            if ($request{"operacion"} == "validar") {
+                // y si la asignacion existe
+                if (MedicoEspecialidad::where("id_medico","=",$request{"id_medico"})
+                    ->where("id_especialidad","=",$request{"id_especialidad"})->first()) {
+                    return response()->json(1);
+                } else {
+                    return response()->json(0);
+                }
+            }
+            // guardar datos de interes
+            foreach ($medicoEspecialidads as &$key) {
+                $key['dni_medico']          = $key->medico->dni;
+                $key['nombre_medico']       = $key->medico->nombre;
+                $key['nombre_especialidad'] = $key->especialidad->nombre;
+            }
+            // retornar data en formato json
+            return response()->json($medicoEspecialidads);        
+        } 
+
+        // retornar vista con el objeto obtenido
         return view('medico_especialidads.index')
             ->with('medicoEspecialidads', $medicoEspecialidads);
     }
@@ -42,24 +68,35 @@ class MedicoEspecialidadController extends AppBaseController
      * @return Response
      */
     public function create()
-    {
-        return view('medico_especialidads.create');
+    {        
+        $medicos       = Medico::pluck('nombre', 'id');
+        $especialidads = Especialidad::pluck('nombre', 'id');
+
+        return view('medico_especialidads.create', compact('medicos', 'especialidads'));    
     }
 
     /**
      * Store a newly created Medico_Especialidad in storage.
      *
-     * @param CreateMedico_EspecialidadRequest $request
+     * @param CreateMedicoEspecialidadRequest $request
      *
      * @return Response
      */
-    public function store(CreateMedico_EspecialidadRequest $request)
-    {
+    public function store(CreateMedicoEspecialidadRequest $request)
+    { 
         $input = $request->all();
 
-        $medicoEspecialidad = $this->medicoEspecialidadRepository->create($input);
+        if ($medicoEspecialidad = $this->medicoEspecialidadRepository->create($input)) {
+            // si la solicitud es a través de ajax     
+            if ($request->ajax()) {
+                // retornar true
+                return response()->json(1);        
+            }        
 
-        Flash::success('Medico  Especialidad saved successfully.');
+            Flash::success('Medico Especialidad saved successfully.');            
+        } else {
+            Flash::error('Medico Especialidad not saved successfully');
+        }
 
         return redirect(route('medicoEspecialidads.index'));
     }
@@ -76,7 +113,7 @@ class MedicoEspecialidadController extends AppBaseController
         $medicoEspecialidad = $this->medicoEspecialidadRepository->findWithoutFail($id);
 
         if (empty($medicoEspecialidad)) {
-            Flash::error('Medico  Especialidad not found');
+            Flash::error('Medico Especialidad not found');
 
             return redirect(route('medicoEspecialidads.index'));
         }
@@ -96,7 +133,7 @@ class MedicoEspecialidadController extends AppBaseController
         $medicoEspecialidad = $this->medicoEspecialidadRepository->findWithoutFail($id);
 
         if (empty($medicoEspecialidad)) {
-            Flash::error('Medico  Especialidad not found');
+            Flash::error('Medico Especialidad not found');
 
             return redirect(route('medicoEspecialidads.index'));
         }
@@ -108,24 +145,38 @@ class MedicoEspecialidadController extends AppBaseController
      * Update the specified Medico_Especialidad in storage.
      *
      * @param  int              $id
-     * @param UpdateMedico_EspecialidadRequest $request
+     * @param UpdateMedicoEspecialidadRequest $request
      *
      * @return Response
      */
-    public function update($id, UpdateMedico_EspecialidadRequest $request)
-    {
+    public function update($id, UpdateMedicoEspecialidadRequest $request)
+    { 
         $medicoEspecialidad = $this->medicoEspecialidadRepository->findWithoutFail($id);
 
         if (empty($medicoEspecialidad)) {
-            Flash::error('Medico  Especialidad not found');
+            // si la solicitud es a través de ajax     
+            if ($request->ajax()) {
+                // retornar false
+                return response()->json(0);        
+            }   
+            Flash::error('Medico Especialidad not found');
 
             return redirect(route('medicoEspecialidads.index'));
         }
 
-        $medicoEspecialidad = $this->medicoEspecialidadRepository->update($request->all(), $id);
-
-        Flash::success('Medico  Especialidad updated successfully.');
-
+        
+        // si se actualizo correctamente
+        if ($medicoEspecialidad = $this->medicoEspecialidadRepository->update($request->all(), $id)) {
+            // si la solicitud es a través de ajax     
+            if ($request->ajax()) {
+                // retornar true
+                return response()->json(1);        
+            }  
+            Flash::success('Medico Especialidad updated successfully.');           
+        } else {
+            Flash::error('Medico Especialidad not updated successfully');
+        }
+        
         return redirect(route('medicoEspecialidads.index'));
     }
 
@@ -136,20 +187,31 @@ class MedicoEspecialidadController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
-    {
-        $medicoEspecialidad = $this->medicoEspecialidadRepository->findWithoutFail($id);
+    public function destroy(Request $request, $id)
+    { 
+        $medicoEspecialidad = $this->medicoEspecialidadRepository->findWithoutFail($id);     
 
         if (empty($medicoEspecialidad)) {
-            Flash::error('Medico  Especialidad not found');
-
-            return redirect(route('medicoEspecialidads.index'));
+            // si la solicitud es a través de ajax     
+            if ($request->ajax()) {
+                // retornar false
+                return response()->json(0);        
+            }   
+            Flash::error('Medico Especialidad not found');
         }
 
-        $this->medicoEspecialidadRepository->delete($id);
-
-        Flash::success('Medico  Especialidad deleted successfully.');
-
+        // si se elimino correctamente
+        if ($this->medicoEspecialidadRepository->delete($id)) {
+            // si la solicitud es a través de ajax     
+            if ($request->ajax()) {
+                // retornar true
+                return response()->json(1);        
+            }  
+            Flash::success('Medico Especialidad deleted successfully.');           
+        } else {
+            Flash::error('Medico Especialidad not deleted successfully');
+        }
+        
         return redirect(route('medicoEspecialidads.index'));
     }
 }

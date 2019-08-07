@@ -1,7 +1,7 @@
 <!-- Contrato Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('contrato', 'Contrato:') !!}
-    {{ Form::select('contrato', $contratos, null, ['class' => 'form-control']) }}
+    {{ Form::select('contrato', $contratos, null, ['class' => 'form-control', 'placeholder' => 'SELECCIONE']) }}
 </div>
 
 <!-- Dni Field -->

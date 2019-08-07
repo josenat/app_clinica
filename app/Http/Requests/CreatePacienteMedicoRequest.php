@@ -3,9 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Medico_Especialidad;
+use App\Models\PacienteMedico;
 
-class CreateMedico_EspecialidadRequest extends FormRequest
+class CreatePacienteMedicoRequest extends FormRequest
 {
 
     /**
@@ -25,6 +25,6 @@ class CreateMedico_EspecialidadRequest extends FormRequest
      */
     public function rules()
     {
-        return Medico_Especialidad::$rules;
+        return PacienteMedico::$rules;
     }
 }

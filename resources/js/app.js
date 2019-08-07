@@ -158,14 +158,31 @@ new Vue({
 		newApellido  : '',
 		newDireccion : '',
 		newContrato  : '',		
-		//****************************************************************************			
+		//****************************************************************************	
+
+
+		//***************** Variables del Recurso 'MedicoEspecialidad' ***************
+		// identificador del recurso
+		uriMedicoEsp  : 'medicoEspecialidads',		
+		uriMedico     : 'medicos',
+		uriEsp        : 'especialidads',
+		// coleccion de datos
+		medicoEsps    : [],
+		medicos       : [],
+		especialidads : [],		
+		// variables auxiliares para contener los nuevos datos a guardar	
+		id_medico_esp   : '',	
+		id_medico       : '',
+		id_especialidad : '',
+		// variables generales				
+		buttonDisabled     : true,	
+		//****************************************************************************	
+				
 	},
 	// cuando el objeto vue se termine de crear
 	created: function() {	
-		// iniciar barra de progreso
-		//this.$Progress.start();       
-        // obtener pacientes
-        //this.getPacientes();
+		// inicializar metodo
+		this.getMedicoEsps();
 	},
 	// cuando se haya completado el DOM
 	ready: function () {
@@ -174,16 +191,143 @@ new Vue({
 	// metodos del objeto vue
 	methods: {
 
-		//*********************** Metodos del Recurso 'Pacientes' ******************
+		//****************** Metodos del Recurso 'MedicoEspecialidad' ****************
+
+		getMedicoEsps: function() {  
+			// ejecutar ruta en el uri del navegador a través del método get
+			axios.get(this.uriMedicoEsp, {headers : this.headers})
+			// si se ejecutó correctamente
+			.then(response => {
+				this.medicoEsps = response.data;
+			});
+
+			// ejecutar ruta en el uri del navegador a través del método get
+			axios.get(this.uriMedico, {headers : this.headers})
+			// si se ejecutó correctamente
+			.then(response => {
+				this.medicos = response.data;	 	
+			});
+
+			// ejecutar ruta en el uri del navegador a través del método get
+			axios.get(this.uriEsp, {headers : this.headers})
+			// si se ejecutó correctamente
+			.then(response => {
+				this.especialidads = response.data;		
+			});		
+			  
+		},			
+
+		editMedicoEsp: function(medicoEsp) { 
+			this.id_medico_esp    = medicoEsp.id;			
+			this.id_medico        = medicoEsp.id_medico;
+			this.id_especialidad  = medicoEsp.id_especialidad;
+		},	
+
+		deleteMedicoEsp: function() {
+			var uri = this.uriMedicoEsp +'/'+ this.id_medico_esp;
+			axios.delete(uri)
+			.then(response => {  
+				// si se elimino exitosamente
+				if (response.data == 1) {
+					// actualizar lista de registros
+					this.getMedicoEsps();
+					toastr.success('Eliminación exitosa');	
+					// limpiar arreglo auxiliar para nuevos datos					
+					this.id_medico       = '';
+					this.id_especialidad = '';
+					this.errors             = []; 					
+				} else {
+					toastr.error('Error de operación');
+				}										
+			});	
+		},		
+			
+		saveMedicoEsp: function() {
+			// si es una operacion de actualizacion, debe existir el recurso a actualizar
+			var id = this.id_medico_esp;
+			if (id > 0) {
+				var uri = this.uriMedicoEsp +'/'+ id;
+				axios.put(uri, {id : this.id_medico_esp, id_medico : this.id_medico, id_especialidad : this.id_especialidad})
+				.then(response => {	 
+				// si se actualizo exitosamente
+				if (response.data == 1) {							
+					this.getMedicoEsps();
+					toastr.success('Actualización exitosa');
+					this.errors = [];	
+				}	
+				})
+				.catch(error => {
+					this.errors = error.response.data
+				});					;
+			// de lo contrario es una operacion de nuevo registro de recurso
+			} else {
+				var uri = this.uriMedicoEsp;
+				axios.post(uri, {
+						id_medico       : this.id_medico, 
+						id_especialidad : this.id_especialidad    							
+					}, {
+						headers : this.headers
+				})
+				.then(response => {
+					if (response.data == 1) {
+						this.getMedicoEsps();
+						toastr.success('Registro exitoso');	
+						// limpiar arreglo auxiliar para nuevos datos					
+						this.id_medico       = '';
+						this.id_especialidad = '';
+						this.errors             = []; 					
+					} else {
+						toastr.error('Error de operación');
+					}
+	 									
+				})
+				.catch(error => {
+					this.errors = error.response.data
+				});				
+			}
+		},	
+
+		changeSelectMeEs: function() {
+			if (this.id_medico > 0 && this.id_especialidad > 0) {
+				// verificar si ya existe la relacion entre medico y especialidad
+				axios.get(this.uriMedicoEsp, {
+	    			params: {
+	    				id_medico       : this.id_medico, 
+	    				id_especialidad : this.id_especialidad,
+	    				operacion       : 'validar'
+	    			} 
+	    		})
+				// si se ejecutó correctamente
+				.then(response => {
+					if (response.data == 1) {
+						toastr.warning('¡Esta asignación ya existe!');
+						this.buttonDisabled = true;
+					} else {
+						toastr.success('¡Asignación disponible!');
+						this.buttonDisabled = false;
+					}
+					
+				});				
+			}
+		},				
+
+		limpiarMedicoEsp: function(boolean) {
+			// limpiar formulario
+			this.id_medico_esp   = '';
+			this.id_medico       = '';
+			this.id_especialidad = '';		
+		},			
+
+		//*********************** Metodos del Recurso 'Pacientes' ********************
 
 		getPacientes: function() {  
 			// ejecutar ruta en el uri del navegador a través del método get
-			axios.get(this.uri, {headers : this.headers})
+			axios.get(this.uriPaciente, {headers : this.headers})
 			// si se ejecutó correctamente
 			.then(response => {
 				this.pacientes = response.data;
 				// finalizar barra de progreso
-				//this.$Progress.finish();		
+				this.$Progress.finish();		
 			});
 		},
 
@@ -196,18 +340,10 @@ new Vue({
 			this.arrayPaciente.direccion = paciente.direccion;
 
 			$("#edit").modal("show");
-
-			// this.arrayPaciente.fecha  = paciente.fecha.split("/").reverse().join("/");
-			// this.arrayPaciente.hora   = paciente.hora; 
 		},	
 
 		updatePaciente: function(id) {  
-			// recoger datos adicionales:
-			// this.arrayPaciente.hora_inicio = $('.hora_').val();
-			// this.arrayPaciente.hora_final  = $('.hora_final').val();
-			// this.arrayPaciente.estado_id   = $('.editEstado option:selected').val();
-
-			var uri = this.uriPaciente+'/'+id;
+			var uri = this.uriPaciente +'/'+ id;
 			axios.put(uri, this.arrayPaciente)
 			.then(response => {				
 				this.getPacientes();
@@ -227,7 +363,7 @@ new Vue({
 		},	
 
 		deletePaciente: function(id) {
-			var uri = this.uriPaciente+'/'+id;
+			var uri = this.uriPaciente +'/'+ id;
 			axios.delete(uri)
 			.then(response => {
 				this.getPacientes();
@@ -236,17 +372,6 @@ new Vue({
 		},
 			
 		storePaciente: function() {
-
-			/* recoger datos adicionales
-			this.newHoraIni = $('.newHoraIni').val();
-			this.newHoraFin = $('.newHoraFin').val();
-			this.newEstado  = $('.newEstado option:selected').val();
-
-			if (this.newEstado == 0) {
-				toastr.error('Seleccione un estado');
-				return;
-			} */ 
-
 			var uri = this.uriPaciente;
 			axios.post(uri, {
 					dni       : this.newDni, 
@@ -259,7 +384,7 @@ new Vue({
 			})
 			.then(response => {
 				// this.getPacientes();
-				// $('#create').modal('hide');
+				$('#create').modal('hide');
 				toastr.success('Registro exitoso');	
 				// limpiar arreglo auxiliar para nuevos datos					
 				this.newDni       = '';
@@ -275,7 +400,7 @@ new Vue({
 		},
 
 
-		//*********************** Metodos del Recurso 'Citas' **********************
+		//*********************** Metodos del Recurso 'Citas' ************************
 
 		getCitas: function() {  
 			// ejecutar ruta en el uri del navegador a través del método get

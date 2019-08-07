@@ -24,8 +24,9 @@ class MedicoEspecialidad extends Model
 
 
     public $fillable = [
-        'id_especialidad',
-        'id_medico'
+        'id_medico',
+        'id_especialidad'
+        
     ];
 
     /**
@@ -34,9 +35,9 @@ class MedicoEspecialidad extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'id_especialidad' => 'integer',
-        'id_medico' => 'integer'
+        'id' => 'integer',        
+        'id_medico' => 'integer',
+        'id_especialidad' => 'integer'
     ];
 
     /**
@@ -45,8 +46,8 @@ class MedicoEspecialidad extends Model
      * @var array
      */
     public static $rules = [
-        'id_especialidad' => 'required',
-        'id_medico' => 'required'
+        'id_medico' => 'required',
+        'id_especialidad' => 'required'        
     ];
 
     public function medico()

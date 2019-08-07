@@ -4,7 +4,7 @@
     <section class="content-header">
         <h1 class="pull-left">Citas</h1>
         <h1 class="pull-right">
-           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('citas.create') !!}">Nuevo</a>
+           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('citas.create') !!}"><span class="glyphicon glyphicon-plus"></span>&nbsp;Nueva</a>
         </h1>
     </section>
     <div class="content">

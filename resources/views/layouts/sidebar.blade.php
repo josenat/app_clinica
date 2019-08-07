@@ -19,7 +19,6 @@
                 <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
             </div>
         </div>
-        <br>
         <!-- Sidebar Menu -->
 
         <ul class="sidebar-menu" data-widget="tree">

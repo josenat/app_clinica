@@ -66,7 +66,7 @@ return [
 
         'documents' => [
             'driver' => 'local',
-            'root' => public_path('img/consultas'),
+            'root' => public_path('documents'),
         ],        
 
     ],
