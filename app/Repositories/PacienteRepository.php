@@ -20,6 +20,7 @@ class PacienteRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
+        'dni',
         'nombre',
         'apellido',
         'fecha_nac',

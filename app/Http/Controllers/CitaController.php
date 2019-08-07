@@ -63,7 +63,7 @@ class CitaController extends AppBaseController
         // variable auxiliar
         $id_relacion = 0;
         // formatear fecha
-        $request{'fecha_cita'} = self::formatDate($request{'fecha_cita'}, 'DD-MM-YYYY', 'YYYY-MM-DD');
+        $request{'fecha_cita'} = self::dateFormat($request{'fecha_cita'}, 'DD-MM-YYYY', 'YYYY-MM-DD');
         // si ya existe la relacion paciente medico
         if ($relacion = PacienteMedico::where('id_paciente','=',$request{'id_paciente'})
         ->where('id_medico','=',$request{'id_medico'})
@@ -156,7 +156,7 @@ class CitaController extends AppBaseController
         // variable auxiliar
         $id_relacion = 0;
         // formatear fecha
-        $request{'fecha_cita'} = self::formatDate($request{'fecha_cita'}, 'DD-MM-YYYY', 'YYYY-MM-DD');
+        $request{'fecha_cita'} = self::dateFormat($request{'fecha_cita'}, 'DD-MM-YYYY', 'YYYY-MM-DD');
         // si ya existe la relacion paciente medico 
         if ($relacion = PacienteMedico::where('id_paciente','=',$request{'id_paciente'})
         ->where('id_medico','=',$request{'id_medico'})

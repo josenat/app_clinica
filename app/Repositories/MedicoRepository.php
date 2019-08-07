@@ -20,6 +20,7 @@ class MedicoRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
+        'dni',
         'nombre',
         'apellido',
         'direccion',

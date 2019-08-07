@@ -55,6 +55,9 @@ class PacienteController extends AppBaseController
      */
     public function store(CreatePacienteRequest $request)
     {
+        // formatear fecha
+        $request{'fecha_nac'} = self::dateFormat($request{'fecha_nac'}, 'DD-MM-YYYY', 'YYYY-MM-DD');
+                
         $input = $request->all();
 
         $paciente = $this->pacienteRepository->create($input);
@@ -113,7 +116,7 @@ class PacienteController extends AppBaseController
      * @return Response
      */
     public function update($id, UpdatePacienteRequest $request)
-    {
+    {  
         $paciente = $this->pacienteRepository->findWithoutFail($id);
 
         if (empty($paciente)) {
@@ -121,6 +124,9 @@ class PacienteController extends AppBaseController
 
             return redirect(route('pacientes.index'));
         }
+
+        // formatear fecha
+        $request{'fecha_nac'} = self::dateFormat($request{'fecha_nac'}, 'DD-MM-YYYY', 'YYYY-MM-DD');
 
         $paciente = $this->pacienteRepository->update($request->all(), $id);
 

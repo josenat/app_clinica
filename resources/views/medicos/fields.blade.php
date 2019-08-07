@@ -1,3 +1,15 @@
+<!-- Contrato Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('contrato', 'Contrato:') !!}
+    {{ Form::select('contrato', $contratos, null, ['class' => 'form-control']) }}
+</div>
+
+<!-- Dni Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('dni', 'DNI:') !!}
+    {!! Form::text('dni', null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Nombre Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('nombre', 'Nombre:') !!}
@@ -16,11 +28,7 @@
     {!! Form::text('direccion', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Contrato Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('contrato', 'Contrato:') !!}
-    {{ Form::select('contrato', $contratos, null, ['class' => 'form-control']) }}
-</div>
+
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

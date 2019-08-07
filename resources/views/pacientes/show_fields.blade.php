@@ -1,7 +1,7 @@
-<!-- Id Field -->
+<!-- Dni Field -->
 <div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $paciente->id !!}</p>
+    {!! Form::label('dni', 'DNI:') !!}
+    <p>{!! $paciente->dni !!}</p>
 </div>
 
 <!-- Nombre Field -->

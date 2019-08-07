@@ -28,7 +28,7 @@ class AppBaseController extends Controller
         return Response::json(ResponseUtil::makeError($error), $code);
     }
 
-    public function formatDate($value, $origen, $format) 
+    public function dateFormat($value, $origen, $format) 
     {
     	if ($origen == 'DD-MM-YYYY' && $format == 'YYYY-MM-DD') {
 			$date    = str_replace('/', '-', $value );

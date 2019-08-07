@@ -2,20 +2,22 @@
     <table class="table" id="pacientes-table">
         <thead>
             <tr>
+                <th>DNI</th>
                 <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Fecha Nac.</th>
-        <th>Dirección</th>
+                <th>Apellido</th>
+                <th>Fecha Nac.</th>
+                <th>Dirección</th>        
                 <th colspan="3">Acción</th>
             </tr>
         </thead>
         <tbody>
         @foreach($pacientes as $paciente)
             <tr>
+                <td>{!! $paciente->dni !!}</td>
                 <td>{!! $paciente->nombre !!}</td>
-            <td>{!! $paciente->apellido !!}</td>
-            <td>{!! $paciente->fecha_nac !!}</td>
-            <td>{!! $paciente->direccion !!}</td>
+                <td>{!! $paciente->apellido !!}</td>
+                <td>{!! $paciente->fecha_nac !!}</td>
+                <td>{!! $paciente->direccion !!}</td>
                 <td>
                     {!! Form::open(['route' => ['pacientes.destroy', $paciente->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

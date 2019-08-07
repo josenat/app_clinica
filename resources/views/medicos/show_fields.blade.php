@@ -33,4 +33,3 @@
     {!! Form::label('updated_at', 'Updated At:') !!}
     <p>{!! $medico->updated_at !!}</p>
 </div>
-

@@ -53,8 +53,7 @@
                       @section('scripts')
                           <script type="text/javascript">
                               $('#fecha_cita').datetimepicker({ 
-                                  format: 'DD-MM-YYYY',
-                                  //useCurrent: false                   
+                                  format: 'DD-MM-YYYY',                  
                               });                  
                           </script>
                       @endsection

@@ -59,6 +59,12 @@ class Paciente extends Model
         'fecha_nac' => 'required'
     ];
 
+    public function getFechaNacAttribute($date)
+    {
+        // si no será leído por DataTables JS puede usar el siguiente código:
+        return \Carbon\Carbon::parse($date)->format('d-m-Y'); // devolverá: d-m-Y 
+    } 
+
     public function medicos()
     {
         return $this->hasMany('App\Models\PacienteMedico', 'id_paciente', 'id');
