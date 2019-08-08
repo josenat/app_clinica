@@ -78613,28 +78613,21 @@ new Vue({
     newFecha_cita: '',
     newObservacion: '',
     //****************************************************************************
-    //*********************** Variables del Recurso 'Consultas' ******************
+    //*********************** Variables del Recurso 'Medicos' ********************
     // identificador del recurso
-    uriConsulta: 'consultas',
+    uriMedico: 'medicos',
     // coleccion de datos
-    consultas: [],
+    medicos: [],
     // arreglo auxiliar para contener los nuevos datos a actualizar
-    arrayConsulta: {
+    arrayMedico: {
       id: '',
-      id_paciente_med: '',
-      id_enfermedad: '',
-      motivo: '',
-      tratamiento: '',
-      id_documento: ''
+      dni: '',
+      nombre: '',
+      apellido: '',
+      direccion: '',
+      contrato: ''
     }
-  }, _defineProperty(_data, "newId_paciente_med", ''), _defineProperty(_data, "newId_enfermedad", ''), _defineProperty(_data, "newMotivo", ''), _defineProperty(_data, "newTratamiento", ''), _defineProperty(_data, "newId_documento", ''), _defineProperty(_data, "uriMedico", 'medicos'), _defineProperty(_data, "medicos", []), _defineProperty(_data, "arrayMedico", {
-    id: '',
-    dni: '',
-    nombre: '',
-    apellido: '',
-    direccion: '',
-    contrato: ''
-  }), _defineProperty(_data, "newDni", ''), _defineProperty(_data, "newNombre", ''), _defineProperty(_data, "newApellido", ''), _defineProperty(_data, "newDireccion", ''), _defineProperty(_data, "newContrato", ''), _defineProperty(_data, "uriMedicoEsp", 'medicoEspecialidads'), _defineProperty(_data, "uriMedico", 'medicos'), _defineProperty(_data, "uriEsp", 'especialidads'), _defineProperty(_data, "medicoEsps", []), _defineProperty(_data, "medicos", []), _defineProperty(_data, "especialidads", []), _defineProperty(_data, "id_medico_esp", ''), _defineProperty(_data, "id_medico", ''), _defineProperty(_data, "id_especialidad", ''), _defineProperty(_data, "buttonDisabled", true), _data),
+  }, _defineProperty(_data, "newDni", ''), _defineProperty(_data, "newNombre", ''), _defineProperty(_data, "newApellido", ''), _defineProperty(_data, "newDireccion", ''), _defineProperty(_data, "newContrato", ''), _defineProperty(_data, "uriMedicoEsp", 'medicoEspecialidads'), _defineProperty(_data, "uriMedico", 'medicos'), _defineProperty(_data, "uriEsp", 'especialidads'), _defineProperty(_data, "medicoEsps", []), _defineProperty(_data, "medicos", []), _defineProperty(_data, "especialidads", []), _defineProperty(_data, "id_medico_esp", ''), _defineProperty(_data, "id_medico", ''), _defineProperty(_data, "id_especialidad", ''), _defineProperty(_data, "buttonDisabled", true), _data),
   // cuando el objeto vue se termine de crear
   created: function created() {
     // inicializar metodo
@@ -78643,6 +78636,7 @@ new Vue({
   // cuando se haya completado el DOM
   ready: function ready() {//
   },
+  mounted: function mounted() {},
   // metodos del objeto vue
   methods: {
     //****************** Metodos del Recurso 'MedicoEspecialidad' ****************
@@ -78651,21 +78645,24 @@ new Vue({
 
       // ejecutar ruta en el uri del navegador a través del método get
       axios.get(this.uriMedicoEsp, {
-        headers: this.headers
+        headers: this.headers,
+        baseURL: "http://127.0.0.1:8000"
       }) // si se ejecutó correctamente
       .then(function (response) {
         _this.medicoEsps = response.data;
       }); // ejecutar ruta en el uri del navegador a través del método get
 
       axios.get(this.uriMedico, {
-        headers: this.headers
+        headers: this.headers,
+        baseURL: "http://127.0.0.1:8000"
       }) // si se ejecutó correctamente
       .then(function (response) {
         _this.medicos = response.data;
       }); // ejecutar ruta en el uri del navegador a través del método get
 
       axios.get(this.uriEsp, {
-        headers: this.headers
+        headers: this.headers,
+        baseURL: "http://127.0.0.1:8000"
       }) // si se ejecutó correctamente
       .then(function (response) {
         _this.especialidads = response.data;
@@ -78926,98 +78923,18 @@ new Vue({
         _this12.errors = error.response.data;
       });
     },
-    //*********************** Metodos del Recurso 'Consultas' ******************
-    getConsultas: function getConsultas() {
-      var _this13 = this;
-
-      // ejecutar ruta en el uri del navegador a través del método get
-      axios.get(this.uriConsultas, {
-        headers: this.headers
-      }) // si se ejecutó correctamente
-      .then(function (response) {
-        _this13.pacientes = response.data; // finalizar barra de progreso
-
-        _this13.$Progress.finish();
-      });
-    },
-    editConsulta: function editConsulta(consulta) {
-      this.arrayConsulta.id = consulta.id;
-      this.arrayConsulta.id_paciente_med = consulta.id_paciente_med;
-      this.arrayConsulta.id_enfermedad = consulta.id_enfermedad;
-      this.arrayConsulta.motivo = consulta.motivo;
-      this.arrayConsulta.tratamiento = consulta.tratamiento;
-      this.arrayConsulta.id_documento = consulta.id_documento;
-      $("#edit").modal("show");
-    },
-    updateConsulta: function updateConsulta(id) {
-      var _this14 = this;
-
-      var uri = this.uriConsultas + '/' + id;
-      axios.put(uri, this.arrayConsulta).then(function (response) {
-        //this.getConsultas();
-        //$('#edit').modal('hide');
-        toastr.success('Actualización exitosa'); // limpiar arreglo auxiliar 
-
-        _this14.arrayConsulta = {
-          id: '',
-          id_paciente_med: '',
-          id_enfermedad: '',
-          motivo: '',
-          tratamiento: '',
-          id_documento: ''
-        };
-        _this14.errors = [];
-      });
-    },
-    deleteConsulta: function deleteConsulta(id) {
-      var _this15 = this;
-
-      var uri = this.uriConsultas + '/' + id;
-      axios["delete"](uri).then(function (response) {
-        _this15.getConsultas();
-
-        toastr.success('Eliminación exitosa');
-      });
-    },
-    storeConsulta: function storeConsulta() {
-      var _this16 = this;
-
-      var uri = this.uriConsultas;
-      axios.post(uri, {
-        id_paciente_med: this.newId_paciente_med,
-        id_enfermedad: this.newId_enfermedad,
-        motivo: this.newMotivo,
-        tratamiento: this.newTratamiento,
-        id_documento: this.newId_documento
-      }, {
-        headers: this.headers
-      }).then(function (response) {
-        // this.getConsultas();
-        // $('#create').modal('hide');
-        toastr.success('Registro exitoso'); // limpiar arreglo auxiliar para nuevos datos					
-
-        _this16.newId_paciente_med = '';
-        _this16.newId_enfermedad = '';
-        _this16.newMotivo = '';
-        _this16.newTratamiento = '';
-        _this16.newId_documento = '';
-        _this16.errors = [];
-      })["catch"](function (error) {
-        _this16.errors = error.response.data;
-      });
-    },
     //*********************** Metodos del Recurso 'Medicos' ********************
     getMedicos: function getMedicos() {
-      var _this17 = this;
+      var _this13 = this;
 
       // ejecutar ruta en el uri del navegador a través del método get
       axios.get(this.uriMedico, {
         headers: this.headers
       }) // si se ejecutó correctamente
       .then(function (response) {
-        _this17.medicos = response.data; // finalizar barra de progreso
+        _this13.medicos = response.data; // finalizar barra de progreso
 
-        _this17.$Progress.finish();
+        _this13.$Progress.finish();
       });
     },
     editMedico: function editMedico(medico) {
@@ -79030,7 +78947,7 @@ new Vue({
       $("#edit").modal("show");
     },
     updateMedico: function updateMedico(id) {
-      var _this18 = this;
+      var _this14 = this;
 
       var uri = this.uriMedico + '/' + id;
       axios.put(uri, this.arrayMedico).then(function (response) {
@@ -79038,7 +78955,7 @@ new Vue({
         // $('#edit').modal('hide');
         toastr.success('Actualización exitosa'); // limpiar arreglo auxiliar 
 
-        _this18.arrayMedico = {
+        _this14.arrayMedico = {
           id: '',
           dni: '',
           nombre: '',
@@ -79046,21 +78963,21 @@ new Vue({
           direccion: '',
           contrato: ''
         };
-        _this18.errors = [];
+        _this14.errors = [];
       });
     },
     deleteMedico: function deleteMedico(id) {
-      var _this19 = this;
+      var _this15 = this;
 
       var uri = this.uriMedico + '/' + id;
       axios["delete"](uri).then(function (response) {
-        _this19.getMedicos();
+        _this15.getMedicos();
 
         toastr.success('Eliminación exitosa');
       });
     },
     storeMedico: function storeMedico() {
-      var _this20 = this;
+      var _this16 = this;
 
       var uri = this.uriMedico;
       axios.post(uri, {
@@ -79076,14 +78993,14 @@ new Vue({
         // $('#create').modal('hide');
         toastr.success('Registro exitoso'); // limpiar arreglo auxiliar para nuevos datos					
 
-        _this20.newDni = '';
-        _this20.newNombre = '';
-        _this20.newApellido = '';
-        _this20.newDireccion = '';
-        _this20.newContrato = '';
-        _this20.errors = [];
+        _this16.newDni = '';
+        _this16.newNombre = '';
+        _this16.newApellido = '';
+        _this16.newDireccion = '';
+        _this16.newContrato = '';
+        _this16.errors = [];
       })["catch"](function (error) {
-        _this20.errors = error.response.data;
+        _this16.errors = error.response.data;
       });
     },
     //**************************** Metodos Generales ***************************

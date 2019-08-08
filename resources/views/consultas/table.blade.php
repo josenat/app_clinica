@@ -4,8 +4,10 @@
             <tr>
                 <th>Fecha</th>
                 <th>Enfermedad</th>
-                <th>Motivo</th>
-                <th>Tratamiento</th>
+                <th>DNI Pac.</th>
+                <th>Paciente</th>
+                <th>DNI Med.</th>
+                <th>Medico</th>
                 <th colspan="3">Acción</th>
             </tr>
         </thead>
@@ -14,8 +16,10 @@
             <tr>
                 <td>{!! $consulta->created_at !!}</td>
                 <td>{!! $consulta->enfermedad->nombre !!}</td>
-                <td>{!! $consulta->motivo !!}</td>
-                <td>{!! $consulta->tratamiento !!}</td>
+                <td>{!! $consulta->paciente_medico->paciente->dni !!}</td>
+                <td>{!! $consulta->paciente_medico->paciente->nombre !!}</td> 
+                <td>{!! $consulta->paciente_medico->medico->dni !!}</td> 
+                <td>{!! $consulta->paciente_medico->medico->nombre !!}</td> 
                 <td>
                     {!! Form::open(['route' => ['consultas.destroy', $consulta->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

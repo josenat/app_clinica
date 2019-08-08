@@ -89,7 +89,14 @@ class ConsultaController extends AppBaseController
             // cargar todos los datos
             $input = $request->all();
             // crear consulta en funcion de la relacion paciente medico generada y demas datos
-            $consulta  = $this->consultaRepository->create($input);
+            $consulta  = $this->consultaRepository->create($input); 
+            // crear documento si existe
+            if (is_file($request{'path'})) {
+                Documento::create([
+                "id_consulta" => $consulta->id,
+                "path"        => $request{'path'}
+                ]);
+            }
             // mensaje de exito
             Flash::success('Cita saved successfully.');            
         } else {
@@ -136,8 +143,17 @@ class ConsultaController extends AppBaseController
 
             return redirect(route('consultas.index'));
         }
-print_r($consulta->paciente_medico->id_paciente); return;
-        return view('consultas.edit')->with('consulta', $consulta);
+
+        $pacientes   = Paciente::pluck('nombre', 'id');
+        $pacientes->prepend($consulta->paciente_medico->paciente->nombre, $consulta->paciente_medico->paciente->id);
+
+        $medicos     = Medico::pluck('nombre', 'id');
+        $medicos->prepend($consulta->paciente_medico->medico->nombre, $consulta->paciente_medico->medico->id);
+
+        $enfermedads = Enfermedad::pluck('nombre', 'id');
+        $enfermedads->prepend($consulta->enfermedad->nombre, $consulta->enfermedad->id);
+
+        return view('consultas.edit', compact('consulta', 'pacientes', 'medicos', 'enfermedads'));
     }
 
     /**

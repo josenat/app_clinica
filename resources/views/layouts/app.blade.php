@@ -160,6 +160,7 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <!-- DateTimePicker JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/12.3.1/classic/ckeditor.js"></script>
     <!-- Custom JS -->
     @yield('scripts')
 </body>

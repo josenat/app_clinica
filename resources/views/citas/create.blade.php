@@ -42,7 +42,7 @@
                         <!-- Observacion Field -->
                         <div class="form-group col-sm-12 col-lg-12">
                             {!! Form::label('observacion', 'Observación:') !!}
-                            {!! Form::textarea('observacion', null, ['class' => 'form-control']) !!}
+                            {!! Form::textarea('observacion', null, ['class' => 'form-control editor']) !!}
                         </div>
 
                         <!-- Submit Field -->
@@ -50,20 +50,20 @@
                             {!! Form::submit('Guardar', ['class' => 'btn btn-primary', 'id' => 'btn-guardar',]) !!}
                             <a href="{!! route('citas.index') !!}" class="btn btn-default">Cancelar</a>
                         </div>
-
-                        @section('scripts')
-                            <script type="text/javascript">
-                                $('#fecha_cita').datetimepicker({ 
-                                    format: 'YYYY-MM-DD',
-                                    useCurrent: true                   
-                                });  
-                                $('#hora_cita').val($('#hora_plugin').val());
-                            </script>
-                        @endsection
-
                     {!! Form::close() !!}
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript"> 
+        $('#fecha_cita').datetimepicker({ 
+            format: 'YYYY-MM-DD',
+            useCurrent: true                   
+        });  
+        $('#hora_cita').val($('#hora_plugin').val());        
+        ClassicEditor.create(document.querySelector('.editor')).catch(error=>{console.error(error);});
+    </script>
 @endsection

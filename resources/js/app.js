@@ -124,25 +124,6 @@ new Vue({
 		//****************************************************************************
 
 
-		//*********************** Variables del Recurso 'Consultas' ******************
-		// identificador del recurso
-		uriConsulta: 'consultas',		
-		// coleccion de datos
-		consultas: [],
-		// arreglo auxiliar para contener los nuevos datos a actualizar
-		arrayConsulta      : {
-			id:'', id_paciente_med:'', id_enfermedad:'', motivo:'', 
-			tratamiento:'', id_documento:'',			
-		},									
-		// variables auxiliares para contener los nuevos datos a registrar
-		newId_paciente_med : '',
-		newId_enfermedad   : '',
-		newMotivo          : '',
-		newTratamiento     : '',
-		newId_documento    : '',	
-		//****************************************************************************
-
-
 		//*********************** Variables del Recurso 'Medicos' ********************
 		// identificador del recurso
 		uriMedico: 'medicos',		
@@ -188,6 +169,9 @@ new Vue({
 	ready: function () {
 		//
 	},	
+	mounted: function() {
+
+  	},	
 	// metodos del objeto vue
 	methods: {
 
@@ -195,26 +179,26 @@ new Vue({
 
 		getMedicoEsps: function() {  
 			// ejecutar ruta en el uri del navegador a través del método get
-			axios.get(this.uriMedicoEsp, {headers : this.headers})
+			axios.get(this.uriMedicoEsp, {headers : this.headers, baseURL : "http://127.0.0.1:8000"})
 			// si se ejecutó correctamente
 			.then(response => {
 				this.medicoEsps = response.data;
 			});
 
 			// ejecutar ruta en el uri del navegador a través del método get
-			axios.get(this.uriMedico, {headers : this.headers})
+			axios.get(this.uriMedico, {headers : this.headers, baseURL : "http://127.0.0.1:8000"})
 			// si se ejecutó correctamente
 			.then(response => {
 				this.medicos = response.data;	 	
 			});
 
 			// ejecutar ruta en el uri del navegador a través del método get
-			axios.get(this.uriEsp, {headers : this.headers})
+			axios.get(this.uriEsp, {headers : this.headers, baseURL : "http://127.0.0.1:8000"})
 			// si se ejecutó correctamente
 			.then(response => {
 				this.especialidads = response.data;		
 			});		
-			  
+			 
 		},			
 
 		editMedicoEsp: function(medicoEsp) { 
@@ -467,88 +451,6 @@ new Vue({
 				this.newFecha_cita      = '';								
 				this.newObservacion     = '';
 				this.errors       = [];  									
-			})
-			.catch(error => {
-				this.errors = error.response.data
-			});
-		},
-
-
-		//*********************** Metodos del Recurso 'Consultas' ******************
-
-		getConsultas: function() {  
-			// ejecutar ruta en el uri del navegador a través del método get
-			axios.get(this.uriConsultas, {headers : this.headers})
-			// si se ejecutó correctamente
-			.then(response => {
-				this.pacientes = response.data;
-				// finalizar barra de progreso
-				this.$Progress.finish();		
-			});
-		},
-
-		editConsulta: function(consulta) {
-			this.arrayConsulta.id              = consulta.id;
-			this.arrayConsulta.id_paciente_med = consulta.id_paciente_med;
-			this.arrayConsulta.id_enfermedad   = consulta.id_enfermedad;
-			this.arrayConsulta.motivo          = consulta.motivo; 
-			this.arrayConsulta.tratamiento     = consulta.tratamiento;
-			this.arrayConsulta.id_documento    = consulta.id_documento;
-
-			$("#edit").modal("show");
-		},	
-
-		updateConsulta: function(id) {  
-			var uri = this.uriConsultas+'/'+id;
-			axios.put(uri, this.arrayConsulta)
-			.then(response => {				
-				//this.getConsultas();
-				//$('#edit').modal('hide');
-				toastr.success('Actualización exitosa');
-				// limpiar arreglo auxiliar 
-				this.arrayConsulta = {
-					id              : '', 
-					id_paciente_med : '',
-					id_enfermedad   : '', 
-					motivo          : '',
-					tratamiento     : '',
-					id_documento    : ''
-				};
-				this.errors = [];		
-			});
-		},	
-
-		deleteConsulta: function(id) {
-			var uri = this.uriConsultas+'/'+id;
-			axios.delete(uri)
-			.then(response => {
-				this.getConsultas();
-				toastr.success('Eliminación exitosa');
-			});
-		},
-			
-		storeConsulta: function() {
-			var uri = this.uriConsultas;
-			axios.post(uri, {
-					id_paciente_med : this.newId_paciente_med, 
-					id_enfermedad   : this.newId_enfermedad,
-					motivo          : this.newMotivo,     
-					tratamiento     : this.newTratamiento,
-					id_documento    : this.newId_documento,     							
-				}, {
-					headers : this.headers
-			})
-			.then(response => {
-				// this.getConsultas();
-				// $('#create').modal('hide');
-				toastr.success('Registro exitoso');	
-				// limpiar arreglo auxiliar para nuevos datos					
-				this.newId_paciente_med = '';
-				this.newId_enfermedad   = '';								
-				this.newMotivo          = '';
-				this.newTratamiento     = '';
-				this.newId_documento    = '';
-				this.errors             = [];  									
 			})
 			.catch(error => {
 				this.errors = error.response.data

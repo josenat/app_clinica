@@ -10,6 +10,19 @@
     <p>{!! $consulta->enfermedad->nombre !!}</p>
 </div>
 
+<!-- Paciente Field -->
+<div class="form-group">
+    {!! Form::label('paciente', 'Paciente:') !!}
+    <p>{!! $consulta->paciente_medico->paciente->nombre !!}</p>
+</div>
+
+
+<!-- Medico Field -->
+<div class="form-group">
+    {!! Form::label('medico', 'Médico:') !!}
+    <p>{!! $consulta->paciente_medico->medico->nombre !!}</p>
+</div>
+
 <!-- Motivo Field -->
 <div class="form-group">
     {!! Form::label('motivo', 'Motivo:') !!}

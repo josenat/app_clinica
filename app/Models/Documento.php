@@ -24,6 +24,7 @@ class Documento extends Model
 
 
     public $fillable = [
+        'id',
         'id_consulta',
         'path'
     ];
@@ -59,7 +60,9 @@ class Documento extends Model
             // obtenemos la extensión de archivo original
             $ext = \File::extension($path->getClientOriginalName());
             // creamos un nuevo nombre de archivo de la siguiente forma
-            $name = $this->attributes['id'] . '.' . $ext;
+            //$name = $this->attributes['id_consulta'] . '.' . $ext;
+            $name = $this->consulta->paciente_medico->id . '-' . 
+                    $this->consulta->paciente_medico->paciente->dni . '.' . $ext;
             // guardamos en base datos el nuevo nombre de archivo
             $this->attributes['path'] = $name;
             // y luego guardamos el archivo en local
