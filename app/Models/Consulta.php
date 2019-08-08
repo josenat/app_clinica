@@ -72,8 +72,8 @@ class Consulta extends Model
         return $this->belongsTo('App\Models\Enfermedad', 'id_enfermedad', 'id');
     } 
 
-    public function documentos()
+    public function imagenes()
     {
-        return $this->hasMany('App\Models\Documento', 'id_consulta', 'id');
+        return $this->hasMany('App\Models\ImageGallery', 'id_consulta', 'id');
     }            
 }

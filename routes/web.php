@@ -25,6 +25,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+// ******************** Controladores de recursos *******************
+
 Route::resource('medicos', 'MedicoController');
 
 Route::resource('especialidads', 'EspecialidadController');
@@ -42,3 +44,17 @@ Route::resource('consultas', 'ConsultaController');
 Route::resource('citas', 'CitaController');
 
 Route::resource('documentos', 'DocumentoController');
+
+// *******************************************************************
+/*
+Route::get('image-gallery', 'ImageGalleryController@index');
+
+Route::post('image-gallery-destroy/{id}', 'ImageGalleryController@destroy');
+
+Route::post('image-gallery', 'ImageGalleryController@upload');
+*/
+Route::post('image-show-by-paciente', 'ImageGalleryController@showbypaciente');
+
+Route::post('image-show-by-medico', 'ImageGalleryController@showbymedico');
+
+Route::resource('image-gallery', 'ImageGalleryController');

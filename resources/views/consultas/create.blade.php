@@ -27,40 +27,10 @@
                         </div>
 
                         <!-- Id Enfermedad Field -->
-                        <div class="form-group col-sm-6">
+                        <div class="form-group col-sm-12">
                             {!! Form::label('enfermedad', 'Enfermedad:') !!}
                             {{ Form::select('id_enfermedad', $enfermedads, null, ['class' => 'form-control', 'placeholder' => 'SELECCIONE', 'required']) }}
-                        </div>
-
-                        <!-- Path Field -->
-                        <div class="form-group col-sm-6 col-lg-6">
-                            {!! Form::label('path', 'Documento:') !!}
-                            <div class="form-group has-feedback"> 
-                                <div class="row">
-                                    <div class="col-xs-2">
-                                        <div class="input-group">
-                                            <label class="btn btn-default" for="path" class="desc-upload"> 
-                                                <input id="path" name="path" type="file" class="path file" style="display:none">
-                                                <span style="margin-right: 18px;">Subir documento</span>
-                                                <span class="glyphicon glyphicon-cloud-upload form-control-feedback"></span>
-                                            </label>        
-                                        </div>
-                                    </div> 
-                                    <div class="col-xs-offset-2 col-xs-8" style="margin-left: 65px; padding-top: 5px;">
-                                        <div id="info-fields" style="display: none;">
-                                            <span  id="info-archivo" class="label label-info" style="font-size: 12px; padding: 10px;">
-                                                Documento <span class='glyphicon glyphicon-ok'></span>
-                                            </span>
-                                            <span  id="borrar-archivo" class="label label-danger" style="font-size: 12px; padding: 10px;">
-                                                Borrar <span class='glyphicon glyphicon-trash'></span>
-                                            </span>                                            
-                                        </div>
-
-                                        <small id="aler-archivo">Tamaño máximo 2 MB</small> 
-                                    </div> 
-                                </div>
-                            </div>
-                        </div>                        
+                        </div>                       
 
                         <!-- Motivo Field -->
                         <div class="form-group col-sm-12 col-lg-12">
@@ -88,10 +58,12 @@
 
 
 @section('scripts')
-    <script type="text/javascript">        
+    <script type="text/javascript"> 
+
         $('#path').click(function() { 
             document.getElementById("path").value = null;
         }); 
+
         $('#path').change(function() {   
             $('#info-archivo').show();
             $('#borrar-archivo').show();
@@ -106,14 +78,18 @@
                 $('#info-fields').hide(); 
                 $('#aler-archivo').show();  
             }            
-        });         
+        });    
+
         $('#borrar-archivo').click(function() {  
             document.getElementById("path").value = null;
             $('#info-fields').hide(); 
             $('#aler-archivo').show();
-        });                    
+        });       
+
         $('#borrar-archivo').css('cursor','pointer');  
+
         ClassicEditor.create(document.querySelector('.editor1')).catch(error=>{console.error(error);});
         ClassicEditor.create(document.querySelector('.editor2')).catch(error=>{console.error(error);});
+         
     </script>
 @endsection

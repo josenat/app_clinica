@@ -43,34 +43,46 @@
                             {!! Form::textarea('tratamiento', null, ['class' => 'form-control editor2']) !!}
                         </div>
 
-                        <!-- Documento Field -->
-                        <div class="form-group col-sm-6 col-lg-6">
-                            <div class="form-group has-feedback"> 
-                                <div class="row">
-                                    <div class="col-xs-2">
-                                        <div class="input-group">
-                                            <label class="btn btn-default" for="path" > 
-                                                <input id="path" name="path" type="file" class="path file" style="display:none">
-                                                <span style="margin-right: 18px;">Subir documento</span>
-                                                <span class="glyphicon glyphicon-cloud-upload form-control-feedback"></span>
-                                            </label>        
-                                        </div>
-                                    </div> 
-                                    <div class="col-xs-offset-2 col-xs-8" style="margin-left: 65px; padding-top: 5px;">
-                                        <span  id="info-archivo" class="label label-info" style="font-size: 12px; padding: 10px;"></span>
-                                        <small id="aler-archivo">Tamaño máximo 2 MB</small> 
-                                    </div> 
-                                </div>
-                            </div>
-                        </div> 
-
                         <!-- Submit Field -->
                         <div class="form-group col-sm-12">
-                            {!! Form::submit('Guardar', ['class' => 'btn btn-primary']) !!}
+                            {!! Form::submit('Actualizar', ['class' => 'btn btn-primary']) !!}
                             <a href="{!! route('consultas.index') !!}" class="btn btn-default">Cancelar</a>
                         </div>
 
                        {!! Form::close() !!}
+               </div>
+                <br><h4><span class="glyphicon glyphicon-picture"></span> Anexar imágen</h4><hr>
+               <div class="row" style="background-color: #D9E1E4">
+                        <div class="container-fluid">
+                        <form action="{{ url('image-gallery') }}" class="form-image-upload" method="POST" enctype="multipart/form-data"><br>
+                            {!! csrf_field() !!}
+                            @if ($message = Session::get('success'))
+                            <div class="alert alert-success alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <strong>{{ $message }}</strong>
+                            </div>
+                            @endif  
+                            <div class="row">
+                                <div class="form-group col-sm-2">
+                                    <strong>N° Consulta:</strong>
+                                    <input type="text" name="id_consulta" class="form-control" value="{{ $consulta->id }}" readonly="">
+                                </div>                              
+                                <div class="form-group col-sm-5">
+                                    <strong>Título:</strong>
+                                    <input type="text" name="title" class="form-control input-title" placeholder="Escriba un título de imágen">
+                                </div>
+                                <div class="form-group col-sm-5">
+                                    <strong>Imágen:</strong>
+                                    <input type="file" name="image" class="form-control input-image">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <br/>
+                                    <button type="submit" class="btn btn-primary btn-save-file">Guardar</button>
+                                </div>
+                                
+                            </div> 
+                        </form>
+                        </div>                 
                </div>
            </div>
        </div>

@@ -13,9 +13,9 @@ use Response;
 use App\Models\Consulta;
 use App\Models\Paciente;
 use App\Models\Medico;
-use App\Models\Documento;
 use App\Models\Enfermedad;
 use App\Models\PacienteMedico;
+
 
 class ConsultaController extends AppBaseController
 {
@@ -89,14 +89,7 @@ class ConsultaController extends AppBaseController
             // cargar todos los datos
             $input = $request->all();
             // crear consulta en funcion de la relacion paciente medico generada y demas datos
-            $consulta  = $this->consultaRepository->create($input); 
-            // crear documento si existe
-            if (is_file($request{'path'})) {
-                Documento::create([
-                "id_consulta" => $consulta->id,
-                "path"        => $request{'path'}
-                ]);
-            }
+            $consulta  = $this->consultaRepository->create($input);
             // mensaje de exito
             Flash::success('Cita saved successfully.');            
         } else {

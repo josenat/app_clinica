@@ -31,6 +31,10 @@
     <a href="{!! route('consultas.index') !!}"><i class="fa fa-edit"></i><span>Consultas Médicas</span></a>
 </li>
 
+<li class="{{ Request::is('image-gallery*') ? 'active' : '' }}">
+    <a href="{!! url('image-gallery') !!}"><i class="fa fa-edit"></i><span>Imágenes Consultas</span></a>
+</li>
+
 <li class="{{ Request::is('medico_especialidads*') ? 'active' : '' }}">
     <a href="{!! route('medicoEspecialidads.index') !!}"><i class="fa fa-edit"></i><span>Gestión Especialidad</span></a>
 </li>
